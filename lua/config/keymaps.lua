@@ -231,3 +231,23 @@ if not vim.g.neovide then
   map("v", "<C-A-j>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
   map("v", "<C-A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 end
+
+-- 智能切换 Neotree 状态（打开/关闭/聚焦）
+map("n", "<leader>e", function()
+  local manager = require("neo-tree.sources.manager")
+  local state = manager.get_state("filesystem")
+  local current_win = vim.api.nvim_get_current_win()
+  
+  if not state or not state.winid then
+    -- 场景1: Neotree 未打开时，打开并聚焦
+    vim.cmd("Neotree focus")
+  else
+    if state.winid == current_win then
+      -- 场景2: 已在 Neotree 窗口时，关闭
+      vim.cmd("Neotree close")
+    else
+      -- 场景3: Neotree 已打开但焦点不在时，切换焦点
+      vim.api.nvim_set_current_win(state.winid)
+    end
+  end
+end, { desc = "Smart toggle Neotree (open/close/focus)" })
