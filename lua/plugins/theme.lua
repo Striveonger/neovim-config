@@ -4,12 +4,20 @@ return {
   { "catppuccin/nvim" },
   { "EdenEast/nightfox.nvim" },
   { "Mofiqul/vscode.nvim",
-    lazy = false,
-    style = "night",
-    priority = 1000,
-    config = function()
-      vim.cmd("highlight Cursor gui=NONE guifg=bg guibg=#ffb6c1")
-    end,
+    lazy = true,
+    -- style = "night",
+    style = "dark",
+    -- priority = 1000,
+    opts = {
+      styles = {
+        floats = "transparent",
+        sidebars = "transparent",
+        comments = { italic = false },
+        keywords = { italic = false },
+        functions = { italic = false },
+        variables = { italic = false },
+      },
+    },
   },
   {
     "folke/tokyonight.nvim",
@@ -38,9 +46,9 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight",
+      -- colorscheme = "tokyonight",
       -- colorscheme = "Nordfox",
-      -- colorscheme = "vscode",
+      colorscheme = "vscode",
       -- colorscheme = "nightfox",
       -- colorscheme = "nvim",
     },
